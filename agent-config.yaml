@@ -9,13 +9,13 @@ hosts:
     rootDeviceHints:
       deviceName: /dev/sda
     interfaces:
-      - name: enp1s0
+      - name: ens18
         macAddress: BC:24:11:2C:46:68
-      - name: enp2s0
+      - name: ens19
         macAddress: BC:24:11:48:BD:18
     networkConfig:
       interfaces:
-        - name: enp1s0
+        - name: ens18
           type: ethernet
           state: up
           mac-address: BC:24:11:2C:46:68
@@ -27,7 +27,7 @@ hosts:
             auto-routes: false
           ipv6:
             enabled: false
-        - name: enp2s0
+        - name: ens19
           type: ethernet
           state: up
           mac-address: BC:24:11:48:BD:18
@@ -46,6 +46,6 @@ hosts:
       routes:
         config:
           - destination: 0.0.0.0/0
-            next-hop-interface: enp1s0
+            next-hop-interface: ens18
             next-hop-address: 192.168.6.1
             table-id: 254

@@ -26,8 +26,8 @@ This repository contains example configurations for both deployment types:
 ## Overview
 
 This deployment configures:
-- **Primary Interface (ens18/enp1s0)**: Management network with static IP or DHCP, handles default routing
-- **Secondary Interface (ens19/enp2s0)**: Bridged via OVS bridge (br-ex) for OpenShift cluster traffic
+- **Primary Interface (ens18)**: Management network with static IP or DHCP, handles default routing
+- **Secondary Interface (ens19)**: Bridged via OVS bridge (br-ex) for OpenShift cluster traffic
 - **Agent-Based Installer**: Zero-touch installation method
 - **OVS Bridge**: Separates cluster traffic for performance, security, or compliance
 
@@ -278,7 +278,7 @@ MachineConfig files that apply the NMState configurations to nodes:
    # - ipv4 addresses: static IP or keep DHCP
    # - dns-resolver server: your DNS server IP
    # - routes next-hop-address: your gateway IP
-   # - interface names (enp1s0, enp2s0): match your hardware
+   # - interface names (ens18, ens19): match your hardware
    ```
 
 3. **Edit sno-node.yaml**:
@@ -290,8 +290,8 @@ MachineConfig files that apply the NMState configurations to nodes:
    # - dns-resolver server: your DNS server IP
    # - routes next-hop-address: your gateway IP
    # 
-   # NOTE: Interface names may differ between discovery (enp*) and 
-   # final OS (ens*). Verify with 'ip link' on the running system.
+   # NOTE: Verify interface names (ens18, ens19) match your hardware
+   # with 'ip link' on the running system.
    ```
 
 ---
@@ -328,6 +328,7 @@ MachineConfig files that apply the NMState configurations to nodes:
    # - rendezvousIP: IP of master-01 (192.168.26.101)
    # - dns-resolver server: your DNS server IP
    # - routes next-hop-address: your gateway IP
+   # - interface names (ens18, ens19): match your hardware
    # 
    # TIP: Get MAC addresses with 'ip link' on each node during discovery
    ```
@@ -443,11 +444,9 @@ grep "mac-address:" master-01.yaml  # Should show 2 unique MACs
 grep "ip:" master-01.yaml           # Should show the correct static IP
 ```
 
-**Important**: Verify interface names match your hardware. Interface names can vary:
-- During discovery: `enp1s0`, `enp2s0` (PCI-based naming)
-- After OS boot: `ens18`, `ens19` (biosdevname or other schemes)
+**Important**: Verify interface names match your hardware. The examples use `ens18` and `ens19`, but your system may use different names like `enp1s0`, `enp2s0` (PCI-based naming) or other naming schemes depending on your hardware and OS configuration.
 
-Check your node's interface names and update the YAML files accordingly.
+Check your node's interface names with `ip link` and update all YAML files accordingly.
 
 ### Step 5: Create MachineConfig with Base64 Encoded NMState
 
