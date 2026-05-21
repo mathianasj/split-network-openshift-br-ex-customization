@@ -1,0 +1,25 @@
+apiVersion: v1
+baseDomain: example.com
+metadata:
+  name: ocpsno
+networking:
+  networkType: OVNKubernetes
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  serviceNetwork:
+  - 172.30.0.0/16
+  machineNetwork:
+  - cidr: 192.168.26.0/24
+compute:
+- name: worker
+  replicas: 0
+controlPlane:
+  name: master
+  replicas: 1
+platform:
+  none: {}
+bootstrapInPlace:
+  installationDisk: /dev/sda
+pullSecret: '<pull-secret-here>'
+sshKey: '<ssh-key-here>'

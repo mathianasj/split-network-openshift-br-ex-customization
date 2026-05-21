@@ -1,0 +1,241 @@
+apiVersion: v1alpha1
+kind: AgentConfig
+metadata:
+  name: ocp-cluster
+rendezvousIP: 192.168.26.101
+hosts:
+  - hostname: master-01
+    role: master
+    rootDeviceHints:
+      deviceName: /dev/sda
+    interfaces:
+      - name: enp1s0
+        macAddress: 52:54:00:11:01:01
+      - name: enp2s0
+        macAddress: 52:54:00:11:01:02
+    networkConfig:
+      interfaces:
+        - name: enp1s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:11:01:01
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.26.101
+                prefix-length: 24
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+        - name: enp2s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:11:01:02
+          ipv4:
+            enabled: true
+            dhcp: true
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+      dns-resolver:
+        config:
+          server:
+            - 192.168.26.128
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-interface: enp1s0
+            next-hop-address: 192.168.6.1
+            table-id: 254
+  - hostname: master-02
+    role: master
+    rootDeviceHints:
+      deviceName: /dev/sda
+    interfaces:
+      - name: enp1s0
+        macAddress: 52:54:00:11:02:01
+      - name: enp2s0
+        macAddress: 52:54:00:11:02:02
+    networkConfig:
+      interfaces:
+        - name: enp1s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:11:02:01
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.26.102
+                prefix-length: 24
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+        - name: enp2s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:11:02:02
+          ipv4:
+            enabled: true
+            dhcp: true
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+      dns-resolver:
+        config:
+          server:
+            - 192.168.26.128
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-interface: enp1s0
+            next-hop-address: 192.168.6.1
+            table-id: 254
+  - hostname: master-03
+    role: master
+    rootDeviceHints:
+      deviceName: /dev/sda
+    interfaces:
+      - name: enp1s0
+        macAddress: 52:54:00:11:03:01
+      - name: enp2s0
+        macAddress: 52:54:00:11:03:02
+    networkConfig:
+      interfaces:
+        - name: enp1s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:11:03:01
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.26.103
+                prefix-length: 24
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+        - name: enp2s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:11:03:02
+          ipv4:
+            enabled: true
+            dhcp: true
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+      dns-resolver:
+        config:
+          server:
+            - 192.168.26.128
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-interface: enp1s0
+            next-hop-address: 192.168.6.1
+            table-id: 254
+  - hostname: worker-01
+    role: worker
+    rootDeviceHints:
+      deviceName: /dev/sda
+    interfaces:
+      - name: enp1s0
+        macAddress: 52:54:00:22:01:01
+      - name: enp2s0
+        macAddress: 52:54:00:22:01:02
+    networkConfig:
+      interfaces:
+        - name: enp1s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:22:01:01
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.26.201
+                prefix-length: 24
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+        - name: enp2s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:22:01:02
+          ipv4:
+            enabled: true
+            dhcp: true
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+      dns-resolver:
+        config:
+          server:
+            - 192.168.26.128
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-interface: enp1s0
+            next-hop-address: 192.168.6.1
+            table-id: 254
+  - hostname: worker-02
+    role: worker
+    rootDeviceHints:
+      deviceName: /dev/sda
+    interfaces:
+      - name: enp1s0
+        macAddress: 52:54:00:22:02:01
+      - name: enp2s0
+        macAddress: 52:54:00:22:02:02
+    networkConfig:
+      interfaces:
+        - name: enp1s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:22:02:01
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.26.202
+                prefix-length: 24
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+        - name: enp2s0
+          type: ethernet
+          state: up
+          mac-address: 52:54:00:22:02:02
+          ipv4:
+            enabled: true
+            dhcp: true
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+      dns-resolver:
+        config:
+          server:
+            - 192.168.26.128
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-interface: enp1s0
+            next-hop-address: 192.168.6.1
+            table-id: 254

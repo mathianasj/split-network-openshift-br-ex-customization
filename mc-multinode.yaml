@@ -1,0 +1,97 @@
+---
+# MachineConfig for master-01
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 10-br-ex-master-01
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      - contents:
+          # This source is the Base64 encoded version of master-01.yaml
+          source: data:text/plain;charset=utf-8;base64,<base64-of-master-01.yaml>
+        mode: 0644
+        overwrite: true
+        # The path determines which node picks up the config
+        path: /etc/nmstate/openshift/master-01.yml
+---
+# MachineConfig for master-02
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 10-br-ex-master-02
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,<base64-of-master-02.yaml>
+        mode: 0644
+        overwrite: true
+        path: /etc/nmstate/openshift/master-02.yml
+---
+# MachineConfig for master-03
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 10-br-ex-master-03
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,<base64-of-master-03.yaml>
+        mode: 0644
+        overwrite: true
+        path: /etc/nmstate/openshift/master-03.yml
+---
+# MachineConfig for worker-01
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 10-br-ex-worker-01
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,<base64-of-worker-01.yaml>
+        mode: 0644
+        overwrite: true
+        path: /etc/nmstate/openshift/worker-01.yml
+---
+# MachineConfig for worker-02
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 10-br-ex-worker-02
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+      - contents:
+          source: data:text/plain;charset=utf-8;base64,<base64-of-worker-02.yaml>
+        mode: 0644
+        overwrite: true
+        path: /etc/nmstate/openshift/worker-02.yml

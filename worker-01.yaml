@@ -1,0 +1,68 @@
+interfaces:
+- name: ens18
+  type: ethernet
+  state: up
+  mac-address: 52:54:00:22:01:01
+  ipv4:
+    enabled: true
+    address:
+      - ip: 192.168.26.201
+        prefix-length: 24
+    auto-dns: false
+    auto-gateway: false
+    auto-routes: false
+  ipv6:
+    enabled: false
+- name: ens19
+  type: ethernet
+  state: up
+  mac-address: 52:54:00:22:01:02
+  ipv4:
+    enabled: false
+    dhcp: false
+    auto-dns: false
+    auto-gateway: false
+    auto-routes: false
+  ipv6:
+    enabled: false
+########################################################
+# OVS Bridge
+########################################################
+- name: br-ex
+  type: ovs-bridge
+  state: up
+  ipv4:
+    enabled: false
+    dhcp: false
+  ipv6:
+    enabled: false
+    dhcp: false
+  bridge:
+    options:
+      mcast-snooping-enable: true
+    port:
+      - name: ens19
+      - name: br-ex
+########################################################
+# OVS Interface
+########################################################
+- name: br-ex
+  type: ovs-interface
+  state: up
+  copy-mac-from: ens19
+  ipv4:
+    enabled: true
+    dhcp: true
+    auto-route-metric: 48
+  ipv6:
+    enabled: false
+dns-resolver:
+  config:
+    server:
+      - 192.168.26.128
+routes:
+  config:
+    - destination: 0.0.0.0/0
+      next-hop-interface: ens18
+      next-hop-address: 192.168.6.1
+      table-id: 254

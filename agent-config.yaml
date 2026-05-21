@@ -1,0 +1,51 @@
+apiVersion: v1alpha1
+kind: AgentConfig
+metadata:
+  name: ocpsno
+rendezvousIP: 192.168.26.111
+hosts:
+  - hostname: sno-node
+    role: master
+    rootDeviceHints:
+      deviceName: /dev/sda
+    interfaces:
+      - name: enp1s0
+        macAddress: BC:24:11:2C:46:68
+      - name: enp2s0
+        macAddress: BC:24:11:48:BD:18
+    networkConfig:
+      interfaces:
+        - name: enp1s0
+          type: ethernet
+          state: up
+          mac-address: BC:24:11:2C:46:68
+          ipv4:
+            enabled: true
+            dhcp: true
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+        - name: enp2s0
+          type: ethernet
+          state: up
+          mac-address: BC:24:11:48:BD:18
+          ipv4:
+            enabled: true
+            dhcp: true
+            auto-dns: false
+            auto-gateway: false
+            auto-routes: false
+          ipv6:
+            enabled: false
+      dns-resolver:
+        config:
+          server:
+            - 192.168.26.128
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-interface: enp1s0
+            next-hop-address: 192.168.6.1
+            table-id: 254
